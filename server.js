@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
@@ -7,7 +8,7 @@ const io = new Server(server);
 const Posts = require('./database/model');
 const helper = require('./database/helper');
 
-app.use(express.json());
+app.use(cors());
 
 app.get('/global', (req, res)=>{
     res.sendFile(__dirname+"/chat.html");

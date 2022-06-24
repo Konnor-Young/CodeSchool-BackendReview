@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Experiment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="newPost">
+            Name: <input placeholder="Name" v-model="userName"> <br>
+            <input placeholder="New Post Here" v-model="userPost"> <br>
+            <button @click="submitPost">Post</button>
+        </div>
+        <div id="postList">
+            <div class="post" v-for="post, index in posts">
+                User: {{ post.user }}
+                Message: {{ post.message }}
+                Likes: {{ post.likes }}
+            </div>
+            <button @click="likePost(post)">Like</button>
+            <button @click="deletePost(post._id)">delete post</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
