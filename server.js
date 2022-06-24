@@ -26,7 +26,7 @@ io.on('connection', (socket)=>{
 app.get('/posts', (req, res)=>{
     Posts.find()
     .then((postsList)=>{
-    res.send(postsList);
+    res.json(postsList);
     }).catch((err)=>{
         res.status(500).json(err);
     });
@@ -35,7 +35,47 @@ app.post('/posts', (req, res)=>{
     let newPost = helper.postHelper(req.body);
     Posts.create(newPost)
     .then((post)=>{
-        res.send(post);
+        res.json(post);
+    }).catch((err)=>{
+        res.status(500).json(err);
+    });
+});
+app.put('/posts/:id', (req, res)=>{
+    let id = req.params.id;
+    let updatedPost = helper.postHelper(req.body);
+    Posts.findByIdAndUpdate(id, updatedPost, {new:true})
+    .then((post)=>{
+        if(post == null){
+            res.status(404).json({Message: "Not Found"});
+            return;
+        }
+        res.json(post);
+    }).catch((err)=>{
+        res.status(500).json(err);
+    });
+});
+app.delete('/posts/:id', (req, res)=>{
+    let id = req.params.id;
+    Posts.findByIdAndDelete(id)
+    .then((post)=>{
+        if(post == null){
+            res.status(404).json({Message: "Not Found"});
+            return;
+        }
+        res.json(post);
+    }).catch((err)=>{
+        res.status(500).json(err);
+    });
+});
+app.patch('/posts/:id', (req, res)=>{
+    let id = req.params.id;
+    Posts.findByIdAndUpdate(id, req.body, {new: true})
+    .then((post)=>{
+        if(post == null){
+            res.status(404).json({Message: "Not Found"});
+            return;
+        }
+        res.json(post);
     }).catch((err)=>{
         res.status(500).json(err);
     });
