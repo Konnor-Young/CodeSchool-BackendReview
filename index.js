@@ -1,6 +1,6 @@
 const config = require('./config');
 const app = require('./server');
-const mongodb = require('./mongo');
+const mongodb = require('./database/mongo');
 config.dotenv.config();
 
 mongodb.onConnect(()=>{
