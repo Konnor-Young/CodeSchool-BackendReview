@@ -6,5 +6,6 @@ flags.parse();
 const port = flags.get("port") || process.env.PORT || 3000;
 
 module.exports = {
-    port: port
+    port: port,
+    dotenv:dotenv
 };
